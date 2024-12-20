@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<title>Thêm mới Đơn hàng</title>
+</head>
+<body>
+	<h1>Thêm mới Đơn hàng</h1>
+
+	<form method="post" th:action="@{/donhang/add}" th:object="${donHang}">
+    <label>Tên Khách hàng:</label>
+    <input type="text" th:field="*{tenKhachHang}" required minlength="5" maxlength="50">
+    <br>
+    
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" required>
+    <br>
+    
+    <label>Ngày đặt hàng:</label>
+    <input type="date" th:field="*{ngayDatHang}" required>
+    <br>
+    
+    <label>Tên Sản phẩm:</label>
+    <input type="text" th:field="*{tenSP}" required>
+    <br>
+    
+    <label>Trạng thái:</label>
+    <input type="radio" th:field="*{trangThai}" value="0" checked> Tạm
+    <input type="radio" th:field="*{trangThai}" value="1"> Chấp nhận
+    <br>
+    
+    <label>Cửa hàng:</label>
+    <select th:field="*{cuaHang.maCuaHang}">
+        <option th:each="cuaHang : ${cuaHangs}" th:value="${cuaHang.maCuaHang}" th:text="${cuaHang.ten}"></option>
+    </select>
+    <br>
+    
+    <button type="submit">Lưu</button>
+</form>
+
+	<a href="/donhang">Quay lại</a>
+</body>
+</html>

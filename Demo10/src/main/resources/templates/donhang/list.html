@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<title>Danh sách Đơn hàng</title>
+</head>
+<body>
+	<h1>Danh sách Đơn hàng</h1>
+
+	<form method="get" action="/donhang/search">
+		<input type="text" name="keyword"
+			placeholder="Tìm kiếm theo Mã đơn hàng hoặc Tên cửa hàng">
+		<button type="submit">Tìm kiếm</button>
+	</form>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Mã Đơn hàng</th>
+				<th>Tên Khách hàng</th>
+				<th>Email</th>
+				<th>Ngày đặt hàng</th>
+				<th>Tên Sản phẩm</th>
+				<th>Trạng thái</th>
+				<th>Cửa hàng</th>
+				<th>Hành động</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="donhang : ${donhangs}">
+				<td th:text="${donhang.id}"></td>
+				<td th:text="${donhang.maDonHang}"></td>
+				<td th:text="${donhang.tenKhachHang}"></td>
+				<td th:text="${donhang.email}"></td>
+				<td th:text="${donhang.ngayDatHang}"></td>
+				<td th:text="${donhang.tenSP}"></td>
+				<td th:text="${donhang.trangThai == 0 ? 'Tạm' : 'Chấp nhận'}"></td>
+				<td th:text="${donhang.cuaHang.ten}"></td>
+				<td><a th:href="@{'/donhang/delete/' + ${donhang.id}}"
+					th:if="${donhang.trangThai == 0}">Xóa</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="/donhang/add">Thêm mới Đơn hàng</a>
+	<br>
+	<a href="/donhang">Xem danh sách Đơn Hàng</a>
+</body>
+</html>
